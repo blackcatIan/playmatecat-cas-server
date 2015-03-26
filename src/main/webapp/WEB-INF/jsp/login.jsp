@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,9 +9,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-    <form action="/login-params" method="post">
-        <input type="text" value="123124">
+    <form:form action="/login-params" method="post" >
+        <form:input path="username" type="text"/>
+        <form:input path="password" type="text"/>
         <input type="submit" value="submit">
-    </form>
+    </form:form>
+    
 </body>
 </html>

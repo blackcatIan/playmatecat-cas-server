@@ -1,9 +1,12 @@
 package com.playmatecat.domain;
 
-public class User {
+import org.hibernate.validator.constraints.NotEmpty;
 
+public class User {
+	@NotEmpty(message="用户名必填")
 	private String username;
 	
+	@NotEmpty(message="密码必填")
 	private String password;
 	
 	public String getUsername() {
