@@ -1,9 +1,11 @@
 package com.playmatecat.cas;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -15,6 +17,8 @@ import org.apache.shiro.subject.PrincipalCollection;
  *
  */
 public class CASRealm extends AuthorizingRealm {
+	
+	private final static Logger logger = Logger.getLogger(CASRealm.class);
 	
 	/**
 	 * 获得授权信息
@@ -47,16 +51,37 @@ public class CASRealm extends AuthorizingRealm {
 		UsernamePasswordToken upToken = (UsernamePasswordToken) token;
 		// 通过表单接收的用户名
 		String username = upToken.getUsername();
-
+		String password = new String(upToken.getPassword());
+		
+		//验证用户名不可为空
 		if (username != null && StringUtils.isNotBlank(username)) {
-			//从数据库查询
-//			LoginAccount account = businessManager.get(username);
-//
-//			if (account != null) {
-//				return new SimpleAuthenticationInfo(account.getLoginName(),
-//						account.getPassword(), getName());
-//			}
+			try {
+				throw new AuthenticationException("username must not empty");
+			} catch (Exception e) {
+				logger.error(e.getMessage());
+				return null;
+			}
 		}
+		//验证密码不可为空
+		if (password != null && StringUtils.isNotBlank(password)) {
+			try {
+				throw new AuthenticationException("username must not empty");
+			} catch (Exception e) {
+				logger.error(e.getMessage());
+				return null;
+			}
+		}
+		
+		
+		//进行DB用户名密码验证
+		if("abc".equals(username) && "123".equals(password)) {
+			return new SimpleAuthenticationInfo(username,password, getName());
+		}
+		
+		//成功则返回令牌对象
+//		return new SimpleAuthenticationInfo(account.getLoginName(),
+//		account.getPassword(), getName());
+
 
 		return null;
 	}

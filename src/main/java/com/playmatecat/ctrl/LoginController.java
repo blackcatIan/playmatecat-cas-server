@@ -27,6 +27,7 @@ public class LoginController {
 		
 		Subject subject = SecurityUtils.getSubject();
 		AuthenticationToken token = new UsernamePasswordToken(username,password);
+		//@see CASRealm#doGetAuthenticationInfo(AuthenticationToken)
 		subject.login(token);
 		
 		
