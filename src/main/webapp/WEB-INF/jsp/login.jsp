@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-    <form:form action="/login-params" method="post" >
+    <form:form modelAttribute="user" action="/login-params" method="post" >
         <form:input path="username" type="text"/>
         <form:input path="password" type="text"/>
         <input type="submit" value="submit">

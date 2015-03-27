@@ -1,5 +1,8 @@
 package com.playmatecat.ctrl;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
@@ -27,7 +30,8 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/login-params")
-	public String loginParams(@Valid @ModelAttribute User user, Model model) {
+	public String loginParams(@Valid @ModelAttribute User user, Model model,
+			HttpServletRequest request, HttpServletResponse response) {
 		String username = "abc";
 		String password = "123";
 		logger.info("login-params...");
@@ -37,8 +41,11 @@ public class LoginController {
 		//@see CASRealm#doGetAuthenticationInfo(AuthenticationToken)
 		subject.login(token);
 		
+		Cookie cookies = new Cookie("testToken", "db8fv");
+		response.addCookie(cookies);
+
 		
 		
-		return "/loginView";
+		return "/login";
 	}
 }

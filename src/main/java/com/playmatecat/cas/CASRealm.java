@@ -54,7 +54,7 @@ public class CASRealm extends AuthorizingRealm {
 		String password = new String(upToken.getPassword());
 		
 		//验证用户名不可为空
-		if (username != null && StringUtils.isNotBlank(username)) {
+		if (username == null || StringUtils.isBlank(username)) {
 			try {
 				throw new AuthenticationException("username must not empty");
 			} catch (Exception e) {
@@ -63,7 +63,7 @@ public class CASRealm extends AuthorizingRealm {
 			}
 		}
 		//验证密码不可为空
-		if (password != null && StringUtils.isNotBlank(password)) {
+		if (password == null || StringUtils.isBlank(password)) {
 			try {
 				throw new AuthenticationException("username must not empty");
 			} catch (Exception e) {
