@@ -45,18 +45,6 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	<!-- spring上下文加载器,自己实现的加载器 -->
-<!-- 	<servlet>
-        <servlet-name>StartupLoadServlet</servlet-name>
-        <servlet-class>application.servlet.ApplicationInitServlet</servlet-class>
-        <init-param>
-            <param-name>checkSource</param-name>
-            <param-value>false</param-value>
-        </init-param>
-        <load-on-startup>0</load-on-startup>
-    </servlet> -->
-	
-	
 	<!-- spring MVC实现，采用servlet进行派发请求 -->
     <servlet>
         <servlet-name>springMVC-dispatcher</servlet-name>
