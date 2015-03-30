@@ -1,5 +1,7 @@
 package com.playmatecat.ctrl;
 
+import java.text.MessageFormat;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.playmatecat.domain.User;
+import com.playmatecat.domain.entity.User;
+import com.playmatecat.domain.vo.loginModule.LoginVO;
 
 @Controller
 @RequestMapping("")
@@ -24,13 +27,13 @@ public class LoginController {
 	private final static Logger logger = Logger.getLogger(LoginController.class);
 	
 	@RequestMapping("/login")
-	public String loginView( @ModelAttribute User user, Model model) {
+	public String loginView( @ModelAttribute LoginVO loginVO, Model model) {
 		logger.info("login...");
-		return "/login";
+		return "/loginModule/login";
 	}
 	
 	@RequestMapping("/login-params")
-	public String loginParams(@Valid @ModelAttribute User user, Model model,
+	public String loginParams(@Valid @ModelAttribute LoginVO loginVO, Model model,
 			HttpServletRequest request, HttpServletResponse response) {
 		String username = "abc";
 		String password = "123";
@@ -39,13 +42,19 @@ public class LoginController {
 		Subject subject = SecurityUtils.getSubject();
 		AuthenticationToken token = new UsernamePasswordToken(username,password);
 		//@see CASRealm#doGetAuthenticationInfo(AuthenticationToken)
-		subject.login(token);
+		try {
+			subject.login(token);
+		} catch (Exception e) {
+			logger.error(MessageFormat.format("登陆失败.username={0},password={1}", username, password));
+		}
 		
-		Cookie cookies = new Cookie("testToken", "db8fv");
-		response.addCookie(cookies);
-
+		
+		//生成token
+		
+		//重定向
 		
 		
-		return "/login";
+		
+		return "/loginModule/login";
 	}
 }
