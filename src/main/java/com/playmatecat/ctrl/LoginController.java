@@ -82,9 +82,11 @@ public class LoginController {
 		String ticket = UtilsAES.encrypt(ticketSrc);
 		
 		//准备重定向
-		String service = loginVO.getService();
-		//匹配出项目所对应的	
+		String redirectUrl = loginVO.getService() + "?ticket=" + ticket;
+		if(StringUtils.isNoneBlank(loginVO.getUrl())) {
+			redirectUrl += "&url=" + loginVO.getUrl();
+		}
 		
-		return "redirect:" + loginVO.getService() + "/?ticket=" + ticket;
+		return "redirect:" + redirectUrl;
 	}
 }
