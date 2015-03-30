@@ -10,24 +10,24 @@
 
 <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript">
-    document.ready(function(){
-    	var service = getQueryString("service");
-    	if(service != null) {
-    		$("input[name='service']").val(service)
-    	}
-    });
+//     document.ready(function(){
+//     	var service = getQueryString("service");
+//     	if(service != null) {
+//     		$("input[name='service']").val(service)
+//     	}
+//     });
     
     
-    /**
-    * 获取url参数
-    */
-	function getQueryString(name) {
-		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-		var r = window.location.search.substr(1).match(reg);
-		if (r != null)
-			return unescape(r[2]);
-		return null;
-	}
+//     /**
+//     * 获取url参数
+//     */
+// 	function getQueryString(name) {
+// 		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+// 		var r = window.location.search.substr(1).match(reg);
+// 		if (r != null)
+// 			return unescape(r[2]);
+// 		return null;
+// 	}
 </script>
 
 </head>
@@ -36,6 +36,7 @@
         <form:input path="userDTO.username" type="text"/>
         <form:input path="userDTO.password" type="text"/>
         <form:hidden path="service"/>
+        <form:hidden path="url"/>
         <input type="submit" value="submit"/>
     </form:form>
     

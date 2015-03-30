@@ -1,12 +1,14 @@
 package com.playmatecat.ctrl;
 
 import java.text.MessageFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -17,8 +19,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.playmatecat.domain.entity.User;
 import com.playmatecat.domain.vo.loginModule.LoginVO;
+import com.playmatecat.utils.encrypt.UtilsAES;
 
 @Controller
 @RequestMapping("")
@@ -29,6 +31,32 @@ public class LoginController {
 	@RequestMapping("/login")
 	public String loginView( @ModelAttribute LoginVO loginVO, Model model) {
 		logger.info("login...");
+		
+		/*
+		 * @step 根据原请求地址,计算出子项目登入地址.
+		 * eg:www.playmate.com/user?id=123
+		 * ->www.playmate.com
+		 * ->www.playmate.com/cas-login
+		 */
+		//原请求地址
+		String lastUrl = loginVO.getUrl();
+		if(StringUtils.isNoneBlank(lastUrl)) {
+			//排除第一个单斜杠
+			String regex = "^.+//((?!(/)).)+";
+			Pattern p = Pattern.compile(regex);
+			Matcher m = p.matcher(lastUrl);
+			String baseUrl = StringUtils.EMPTY;
+			while(m.find()) {
+				//获得子项目干净的根网址
+				baseUrl = m.group(0);
+				break;
+			}
+			
+			//组织子项目登入
+			String service =  baseUrl + "/cas-login";
+			loginVO.setService(service);
+		}
+		
 		return "/loginModule/login";
 	}
 	
@@ -49,12 +77,14 @@ public class LoginController {
 		}
 		
 		
-		//生成token
+		//生成ticket
+		String ticketSrc = username + "," + password;
+		String ticket = UtilsAES.encrypt(ticketSrc);
 		
-		//重定向
+		//准备重定向
+		String service = loginVO.getService();
+		//匹配出项目所对应的	
 		
-		
-		
-		return "/loginModule/login";
+		return "redirect:" + loginVO.getService() + "/?ticket=" + ticket;
 	}
 }
