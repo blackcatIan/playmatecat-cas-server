@@ -52,7 +52,7 @@ public class LoginController {
 				break;
 			}
 			
-			//组织子项目登入
+			//拼出子项目登入服务地址
 			String service =  baseUrl + "/cas-login";
 			loginVO.setService(service);
 		}
