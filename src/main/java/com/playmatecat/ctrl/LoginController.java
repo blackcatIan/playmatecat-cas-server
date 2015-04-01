@@ -1,6 +1,8 @@
 package com.playmatecat.ctrl;
 
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -76,9 +78,10 @@ public class LoginController {
 			logger.error(MessageFormat.format("登陆失败.username={0},password={1}", username, password));
 		}
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		
 		//生成ticket
-		String ticketSrc = username + "," + password;
+		String ticketSrc = username + "," + password + "," + sdf.format(new Date());
 		String ticket = UtilsAES.encrypt(ticketSrc);
 		
 		//准备重定向
