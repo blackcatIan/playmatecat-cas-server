@@ -32,7 +32,7 @@
 
 </head>
 <body>
-    <form:form modelAttribute="loginVO" action="/login-params" method="post" >
+    <form:form modelAttribute="casLoginVO" action="/login-params" method="post" >
         <form:input path="userDTO.username" type="text"/>
         <form:input path="userDTO.password" type="text"/>
         <form:hidden path="service"/>

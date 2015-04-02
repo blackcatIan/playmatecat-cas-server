@@ -78,6 +78,8 @@ public class LoginController {
 			logger.error(MessageFormat.format("登陆失败.username={0},password={1}", username, password));
 		}
 		
+
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		
 		//生成ticket
