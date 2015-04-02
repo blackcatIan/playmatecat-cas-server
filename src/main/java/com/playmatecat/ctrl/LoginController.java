@@ -21,7 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.playmatecat.domain.vo.loginModule.LoginVO;
+import com.playmatecat.domain.vo.loginModule.CasLoginVO;
 import com.playmatecat.utils.encrypt.UtilsAES;
 
 @Controller
@@ -31,7 +31,7 @@ public class LoginController {
 	private final static Logger logger = Logger.getLogger(LoginController.class);
 	
 	@RequestMapping("/login")
-	public String loginView( @ModelAttribute LoginVO loginVO, Model model) {
+	public String loginView( @ModelAttribute CasLoginVO casLoginVO, Model model) {
 		logger.info("login...");
 		
 		/*
@@ -41,7 +41,7 @@ public class LoginController {
 		 * ->www.playmate.com/playmatecate-web/cas-login
 		 */
 		//原请求地址
-		String lastUrl = loginVO.getUrl();
+		String lastUrl = casLoginVO.getUrl();
 		if(StringUtils.isNoneBlank(lastUrl)) {
 			//排除第一个单斜杠,((?!(/)).)+ 任意字符除了单斜杠
 			String regex = "^.+//((?!(/)).)+/((?!(/)).)+";
@@ -56,14 +56,14 @@ public class LoginController {
 			
 			//拼出子项目登入服务地址
 			String service =  baseUrl + "/cas-login";
-			loginVO.setService(service);
+			casLoginVO.setService(service);
 		}
 		
 		return "/loginModule/login";
 	}
 	
 	@RequestMapping("/login-params")
-	public String loginParams(@Valid @ModelAttribute LoginVO loginVO, Model model,
+	public String loginParams(@Valid @ModelAttribute CasLoginVO casLoginVO, Model model,
 			HttpServletRequest request, HttpServletResponse response) {
 		String username = "abc";
 		String password = "123";
@@ -85,9 +85,9 @@ public class LoginController {
 		String ticket = UtilsAES.encrypt(ticketSrc);
 		
 		//准备重定向
-		String redirectUrl = loginVO.getService() + "?ticket=" + ticket;
-		if(StringUtils.isNoneBlank(loginVO.getUrl())) {
-			redirectUrl += "&url=" + loginVO.getUrl();
+		String redirectUrl = casLoginVO.getService() + "?ticket=" + ticket;
+		if(StringUtils.isNoneBlank(casLoginVO.getUrl())) {
+			redirectUrl += "&url=" + casLoginVO.getUrl();
 		}
 		
 		return "redirect:" + redirectUrl;

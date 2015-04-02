@@ -2,14 +2,13 @@ package com.playmatecat.domain.vo.loginModule;
 
 import com.playmatecat.domain.dto.UserDTO;
 
-
-public class LoginVO {
+public class CasLoginVO {
 	private UserDTO userDTO;
-	
-	/**跳转的子项目登录地址**/
+
+	/** 跳转的子项目登录地址 **/
 	private String service;
-	
-	/**请求跳转过来的地址**/
+
+	/** 请求跳转过来的地址 **/
 	private String url;
 
 	public UserDTO getUserDTO() {
@@ -36,5 +35,4 @@ public class LoginVO {
 		this.url = url;
 	}
 
-	
 }
