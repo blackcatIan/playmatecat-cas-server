@@ -36,15 +36,15 @@ public class LoginController {
 		
 		/*
 		 * @step 根据原请求地址,计算出子项目登入地址.
-		 * eg:www.playmate.com/user?id=123
-		 * ->www.playmate.com
-		 * ->www.playmate.com/cas-login
+		 * eg:www.playmate.com/playmatecate-web/user?id=123
+		 * ->www.playmate.com/playmatecate-web
+		 * ->www.playmate.com/playmatecate-web/cas-login
 		 */
 		//原请求地址
 		String lastUrl = loginVO.getUrl();
 		if(StringUtils.isNoneBlank(lastUrl)) {
-			//排除第一个单斜杠
-			String regex = "^.+//((?!(/)).)+";
+			//排除第一个单斜杠,((?!(/)).)+ 任意字符除了单斜杠
+			String regex = "^.+//((?!(/)).)+/((?!(/)).)+";
 			Pattern p = Pattern.compile(regex);
 			Matcher m = p.matcher(lastUrl);
 			String baseUrl = StringUtils.EMPTY;
