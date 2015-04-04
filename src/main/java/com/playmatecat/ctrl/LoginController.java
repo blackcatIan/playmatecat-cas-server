@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -16,6 +17,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -59,7 +61,7 @@ public class LoginController {
 			casLoginVO.setService(service);
 		}
 		
-		return "/loginModule/login";
+		return "/login-module/login";
 	}
 	
 	@RequestMapping("/login-params")
@@ -78,8 +80,12 @@ public class LoginController {
 			logger.error(MessageFormat.format("登陆失败.username={0},password={1}", username, password));
 		}
 		
-
-		
+		Cookie cookies = new Cookie("test", "dg8vf");
+		cookies.setDomain("playmatecat.com");
+		cookies.setMaxAge(-1);
+		cookies.setPath("/");
+		response.addCookie(cookies);
+		//CookieRememberMeManager.DEFAULT_REMEMBER_ME_COOKIE_NAME;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		
 		//生成ticket
@@ -92,6 +98,14 @@ public class LoginController {
 			redirectUrl += "&url=" + casLoginVO.getUrl();
 		}
 		
-		return "redirect:" + redirectUrl;
+		String rtn = "redirect:" + redirectUrl;
+		
+		if(StringUtils.isBlank(casLoginVO.getUrl())) {
+			//若不存在跳转地址,则跳到单点登录成功页
+			rtn = "index";
+		}
+		
+		return rtn;
 	}
+	
 }
