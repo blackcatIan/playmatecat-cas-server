@@ -41,7 +41,8 @@ $(document).ready(function(){
 	//模拟placehold
 	$("#un_ph").bind("click",login_module.un_ph_click);
 	//模拟placehold
-	$("#pw_ph").bind("click",login_module.pw_ph_click);
+// 	$("#pw_ph").bind("click",login_module.pw_ph_click);
+
 });
 
 var login_module = {
@@ -54,9 +55,9 @@ var login_module = {
 		/**
 		*处理密码被focus时的模拟placeholder
 		*/
-		pw_ph_click: function() {
-			$("input[name='userDTO.password']").focus();
-		}
+// 		pw_ph_click: function() {
+// 			$("input[name='userDTO.password']").focus();
+// 		}
 }
 
 </script>
@@ -73,15 +74,18 @@ var login_module = {
 				<%--space--%>
 			</div>
 			<div class="col-md-3">
-				<div class="row" style="border:1px solid gray;border-radius:3px;">
+                            <%--space--%>
+            </div>
+			<div class="col-md-3">
+				<div class="row">
 
 					<form:form modelAttribute="casLoginVO" action="/login-params" class=".form-inline" method="post">
 						<form:hidden path="service" />
 						<form:hidden path="url" />
-						<div class="col-md-3">
+						<div class="col-md-1 col-lg-2">
 							<%--space--%>
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-10 col-lg-8" style="border:1px solid gray;border-radius:3px;">
 							<div class="row pd5">
 								<label class="icon-group" for="userDTO.password" accesskey="u"></label>
 							    <span ng-show="username == '' || username == null" id="un_ph" class="placeholder_txt">用 户 名</span>
@@ -89,26 +93,34 @@ var login_module = {
 							</div>
 							<div class="row pd5">
 								<label class="icon-key" for="userDTO.password" accesskey="p"></label>
-								<span ng-show="password == '' || password == null" id="pw_ph" class="placeholder_txt">登 录 密 码</span>
-								<form:input ng-model="password" path="userDTO.password" type="password" class="w175" />
+								<input name="userDTO.password" type="password" class="w175" value=""/>
 							</div>
 
 							<div class="row pd5">
 								<input type="submit" value="登 录" class="btn btn-primary btn-sm pd5_0 w198" />
 							</div>
 							<div class="row">
-							    <div class="col-md-4">
-                                    <input type="checkbox" value="true" name="rememberMe"/>
+							    <div class="col-md-1"></div>
+							    <div class="col-md-5">
+                                    <input type="checkbox" value="true" name="rememberMe" checked="checked"/>记住我
                                 </div>
-								<div class="col-md-4">
-									<a href="javascript:void(0);">免费注册</a>
-								</div>
-								<div class="col-md-4">
-									<a href="javascript:void(0);">忘记密码?</a>
-								</div>
+                                <div class="col-md-5">
+                                    <a href="javascript:void(0);">忘记密码?</a>
+                                </div> 
+                                <div class="col-md-1"></div>
+							</div>
+							<div class="row">
+							    <div class="col-md-1"></div>
+							    <div class="col-md-5">
+                                    <a href="javascript:void(0);">立即注册</a>
+                                </div>
+                                <div class="col-md-5">
+                                    <a href="javascript:void(0);">用户协议</a>
+                                </div> 
+                                <div class="col-md-1"></div>
 							</div>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-1 col-lg-2">
 							<%--space--%>
 						</div>
 					</form:form>
@@ -116,7 +128,7 @@ var login_module = {
 				</div>
 				<%--<div class="row text-left"> --%>
 			</div>
-			<div class="col-md-7">
+			<div class="col-md-4">
 				<%--space--%>
 			</div>
 			<div class="col-md-1">
