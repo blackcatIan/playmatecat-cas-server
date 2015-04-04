@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.playmatecat.domain.vo.loginModule.CasLoginVO;
 import com.playmatecat.utils.encrypt.UtilsAES;
@@ -64,7 +65,7 @@ public class LoginController {
 		return "/login-module/login";
 	}
 	
-	@RequestMapping("/login-params")
+	@RequestMapping(value = "/login-params",method = RequestMethod.POST)
 	public String loginParams(@Valid @ModelAttribute CasLoginVO casLoginVO, Model model,
 			HttpServletRequest request, HttpServletResponse response) {
 		String username = "abc";
@@ -72,20 +73,24 @@ public class LoginController {
 		logger.info("login-params...");
 		
 		Subject subject = SecurityUtils.getSubject();
-		AuthenticationToken token = new UsernamePasswordToken(username,password);
+		UsernamePasswordToken token = new UsernamePasswordToken(username,password);
 		//@see CASRealm#doGetAuthenticationInfo(AuthenticationToken)
+		
+		token.setRememberMe(true);
+		
 		try {
 			subject.login(token);
 		} catch (Exception e) {
 			logger.error(MessageFormat.format("登陆失败.username={0},password={1}", username, password));
 		}
 		
+		/*//其他cookies 跨域设置范例:
 		Cookie cookies = new Cookie("test", "dg8vf");
 		cookies.setDomain("playmatecat.com");
 		cookies.setMaxAge(-1);
 		cookies.setPath("/");
-		response.addCookie(cookies);
-		//CookieRememberMeManager.DEFAULT_REMEMBER_ME_COOKIE_NAME;
+		response.addCookie(cookies);*/
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		
 		//生成ticket
@@ -105,7 +110,16 @@ public class LoginController {
 			rtn = "index";
 		}
 		
+		System.out.println(subject.isRemembered());
+		
 		return rtn;
 	}
 	
+	
+	@RequestMapping("/test")
+	public String test( @ModelAttribute CasLoginVO casLoginVO, Model model) {
+		Subject subject = SecurityUtils.getSubject();
+		System.out.println(subject.isRemembered());
+		return "index";
+	}
 }

@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>欢迎登录</title>
 
 <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" type="text/css" />
-<link rel="stylesheet" href="static/css/lib/font-awesome-3.2.1/css/font-awesome.min.css" type="text/css" />
+<link rel="stylesheet" href="/static/css/lib/font-awesome-3.2.1/css/font-awesome.min.css" type="text/css" />
 
 <link rel="stylesheet" href="/static/css/commons/commons.css" type="text/css" />
 <link rel="stylesheet" href="/static/css/login-module/login.css" type="text/css" />
@@ -97,10 +97,13 @@ var login_module = {
 								<input type="submit" value="登 录" class="btn btn-primary btn-sm pd5_0 w198" />
 							</div>
 							<div class="row">
-								<div class="col-md-6">
+							    <div class="col-md-4">
+                                    <input type="checkbox" value="true" name="rememberMe"/>
+                                </div>
+								<div class="col-md-4">
 									<a href="javascript:void(0);">免费注册</a>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-4">
 									<a href="javascript:void(0);">忘记密码?</a>
 								</div>
 							</div>
