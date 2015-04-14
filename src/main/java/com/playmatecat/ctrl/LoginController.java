@@ -34,7 +34,7 @@ public class LoginController {
 	private final static Logger logger = Logger.getLogger(LoginController.class);
 	
 	@RequestMapping("/login")
-	public String loginView( @ModelAttribute CasLoginVO casLoginVO, Model model) {
+	public String loginView( @ModelAttribute(value="casLoginVO") CasLoginVO casLoginVO, Model model) {
 		logger.info("login...");
 		
 		/*
@@ -66,7 +66,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/login-params",method = RequestMethod.POST)
-	public String loginParams(@Valid @ModelAttribute CasLoginVO casLoginVO, Model model,
+	public String loginParams(@Valid @ModelAttribute(value="casLoginVO") CasLoginVO casLoginVO, Model model,
 			HttpServletRequest request, HttpServletResponse response) {
 		String username = "abc";
 		String password = "123";
@@ -117,7 +117,7 @@ public class LoginController {
 	
 	
 	@RequestMapping("/test")
-	public String test( @ModelAttribute CasLoginVO casLoginVO, Model model) {
+	public String test( @ModelAttribute(value="casLoginVO") CasLoginVO casLoginVO, Model model) {
 		Subject subject = SecurityUtils.getSubject();
 		System.out.println(subject.isRemembered());
 		return "index";
