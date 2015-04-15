@@ -64,7 +64,7 @@ var login_module = {
 </head>
 <body>
 	<div ng-app class="container-fluid">
-	   <div class="row">
+	   <div class="row" style="height:200px;">
 	   </div>
 
 
@@ -78,13 +78,14 @@ var login_module = {
 			<div class="col-md-3">
 				<div class="row">
 
-					<form:form modelAttribute="casLoginVO" action="/login-params" class=".form-inline" method="post">
+					<form:form modelAttribute="casLoginVO" action="/login-params" method="post">
 						<form:hidden path="service" />
 						<form:hidden path="url" />
 						<div class="col-md-1 col-lg-2">
 							<%--space--%>
 						</div>
 						<div class="col-md-10 col-lg-8" style="border:1px solid gray;border-radius:3px;">
+						    <div class="row pd5" style="background:url(/static/images/logo.png) top center no-repeat;height:100px;"></div>
 							<div class="row pd5">
 								<label class="icon-group" for="userDTO.password" accesskey="u"></label>
 							    <span ng-show="username == '' || username == null" id="un_ph" class="placeholder_txt">用户名</span>
