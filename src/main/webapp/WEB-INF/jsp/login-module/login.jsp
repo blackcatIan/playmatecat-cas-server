@@ -5,7 +5,6 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>  
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -88,36 +87,32 @@ var login_module = {
 						<div class="col-md-10 col-lg-8" style="border:1px solid gray;border-radius:3px;">
 							<div class="row pd5">
 								<label class="icon-group" for="userDTO.password" accesskey="u"></label>
-							    <span ng-show="username == '' || username == null" id="un_ph" class="placeholder_txt">用 户 名</span>
+							    <span ng-show="username == '' || username == null" id="un_ph" class="placeholder_txt">用户名</span>
                                 <form:input ng-model="username" path="userDTO.username" type="text" class="w175"/>
 							</div>
 							<div class="row pd5">
 								<label class="icon-key" for="userDTO.password" accesskey="p"></label>
-								<input name="userDTO.password" type="password" class="w175" value=""/>
+								<input name="userDTO.password" type="password" class="w175" value="" placeholder="密码"/>
 							</div>
 
 							<div class="row pd5">
 								<input type="submit" value="登 录" class="btn btn-primary btn-sm pd5_0 w198" />
 							</div>
 							<div class="row">
-							    <div class="col-md-1"></div>
-							    <div class="col-md-5">
+							    <div class="col-md-6">
                                     <input type="checkbox" value="true" name="rememberMe" checked="checked"/>记住我
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <a href="javascript:void(0);">忘记密码?</a>
                                 </div> 
-                                <div class="col-md-1"></div>
 							</div>
 							<div class="row">
-							    <div class="col-md-1"></div>
-							    <div class="col-md-5">
+							    <div class="col-md-6">
                                     <a href="javascript:void(0);">立即注册</a>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <a href="javascript:void(0);">用户协议</a>
                                 </div> 
-                                <div class="col-md-1"></div>
 							</div>
 						</div>
 						<div class="col-md-1 col-lg-2">
